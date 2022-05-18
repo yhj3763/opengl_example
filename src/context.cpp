@@ -127,8 +127,8 @@ bool Context::Init() {
 
     m_indexBuffer = Buffer::CreateWithData(GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW, indices, sizeof(uint32_t) * 36);
 
-    ShaderPtr vertShader = Shader::CreateFromFile("./shader/texture.vs", GL_VERTEX_SHADER);
-    ShaderPtr fragShader = Shader::CreateFromFile("./shader/texture.fs", GL_FRAGMENT_SHADER);
+    ShaderPtr vertShader = Shader::CreateFromFile("./shader/lighting.vs", GL_VERTEX_SHADER);
+    ShaderPtr fragShader = Shader::CreateFromFile("./shader/lighting.fs", GL_FRAGMENT_SHADER);
     if (!vertShader || !fragShader)
         return false;
     SPDLOG_INFO("vertex shader id: {}", vertShader->Get());
@@ -179,11 +179,21 @@ void Context::Render() {
             m_cameraYaw = 0.0f;
             m_cameraPitch = 0.0f;
             m_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+        }                
+        if (ImGui::CollapsingHeader("light")) {
+            ImGui::ColorEdit3("light color", glm::value_ptr(m_lightColor));
+            ImGui::ColorEdit3("object color", glm::value_ptr(m_objectColor));
+            ImGui::SliderFloat("ambient strength", &m_ambientStrength, 0.0f, 1.0f);
         }
     }
     ImGui::End();
 
-    
+    	
+    m_program->Use();
+    m_program->SetUniform("lightColor", m_lightColor);
+    m_program->SetUniform("objectColor", m_objectColor);
+    m_program->SetUniform("ambientStrength", m_ambientStrength);
+
 
     std::vector<glm::vec3> cubePositions = {
             glm::vec3( 0.0f, 0.0f, 0.0f),
