@@ -7,6 +7,8 @@
 #include "buffer.h" 
 #include "vertex_layout.h"
 #include "texture.h"
+#include "mesh.h"
+#include "model.h"
 
 CLASS_PTR(Context)
 class Context {
@@ -24,9 +26,8 @@ private:
     ProgramUPtr m_program;
     ProgramUPtr m_simpleProgram;
 
-    VertexLayoutUPtr m_vertexLayout;	
-    BufferUPtr m_vertexBuffer;
-    BufferUPtr m_indexBuffer;
+    MeshUPtr m_box;   	    
+    ModelUPtr m_model;
     TextureUPtr m_texture;
     TextureUPtr m_texture2;
 
@@ -46,6 +47,7 @@ private:
         glm::vec3 specular { glm::vec3(1.0f, 1.0f, 1.0f) };
     };
     Light m_light;
+    bool m_flashLightMode {false};
 
     // material parameter
     struct Material {
