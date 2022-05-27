@@ -106,7 +106,6 @@ int main(int argc, const char** argv){
     glfwSetWindowUserPointer(window, context.get());
 
 
-
     ShaderPtr vertShader = Shader::CreateFromFile("./shader/simple.vs", GL_VERTEX_SHADER);
     ShaderPtr fragShader = Shader::CreateFromFile("./shader/simple.fs", GL_FRAGMENT_SHADER);
     SPDLOG_INFO("vertex shader id: {}", vertShader->Get());

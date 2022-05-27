@@ -21,7 +21,7 @@ public:
 
 private:
     Image() {};
-    bool LoadWithStb(const std::string& filepath, bool flipVertical);
+    bool LoadWithStb(const std::string& filepath, bool flipVertical = true);
     bool Allocate(int width, int height, int channelCount);
     int m_width { 0 };
     int m_height { 0 };
