@@ -96,6 +96,16 @@ private:
 
     int m_width {WINDOW_WIDTH};
     int m_height {WINDOW_HEIGHT};
+
+    FramebufferUPtr m_deferGeoFramebuffer;
+    ProgramUPtr m_deferGeoProgram;
+    ProgramUPtr m_deferLightProgram;
+
+    struct DeferLight {
+        glm::vec3 position;
+        glm::vec3 color;
+    };
+    std::vector<DeferLight> m_deferLights;
 };
 
 #endif // __CONTEXT_H__
